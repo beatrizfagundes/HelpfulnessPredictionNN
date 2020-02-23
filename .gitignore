@@ -1,0 +1,8 @@
+# Ignore tempfiles
+.DS_Store
+__pycache__
+
+# Ignore folders
+datasets/
+results/
+test/
