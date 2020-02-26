@@ -54,7 +54,7 @@ parser.add_argument("--regularizer", type=float, default='0.001', help="Lambda o
 # Dense arguments
 # 5, 50, 100
 parser.add_argument("--dense_units", type=int, default='10', help="Number of units of the Denser layer")
-# 1, 2, 3, 4
+# 1, 2, 3
 parser.add_argument("--num_dense_layers", type=int, default='1', help="Number of Denser layers")
 # LSTM arguments
 parser.add_argument("--lstm_output", type=int, default='50', help="Number of dimensions from the LSTM layer")
@@ -212,7 +212,8 @@ for i in range(k):
 
     # Train model
     early_stop = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=params.patience)
-    model.fit(train_batches, epochs=params.num_epochs, validation_data=val_batches, validation_steps=None, callbacks=[early_stop])
+    history = model.fit(train_batches, epochs=params.num_epochs, validation_data=val_batches, validation_steps=None, callbacks=[early_stop], verbose=0)
+    print(history.history)
 
     # Test model
     if params.learning_task == 'classification':
@@ -245,4 +246,4 @@ print(results)
 for metric_results in results:
     for metric in metric_results:
         print('Mean %s: %f (+/- %f)' % (metric, np.mean(metric_results[metric], dtype=np.float64), np.std(metric_results[metric], dtype=np.float64)))
-
+print('###################################################################################################################################')
